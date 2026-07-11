@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASYPAGEX // DEMO SHOWCASE</title>
+    <style>
+        :root {
+            --bg-color: #0a0a16;
+            --panel-bg: rgba(16, 16, 36, 0.7);
+            --neon-blue: #00f0ff;
+            --neon-pink: #ff007f;
+            --neon-green: #39ff14;
+            --text-main: #e2e8f0;
+            --text-dim: #707793;
+            --glow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--neon-pink);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        }
+
+        .category-panel:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            border-bottom: 1px dashed rgba(112, 119, 147, 0.3);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category-title::after {
+            content: 'SYS.ACTIVE';
+            font-size: 0.65rem;
+            color: var(--neon-green);
+            background: rgba(57, 255, 20, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .link-node {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        .link-node:hover {
+            background: rgba(0, 240, 255, 0.08);
+            border-color: var(--neon-blue);
+            transform: translateX(4px);
+        }
+
+        .node-emoji {
+            font-size: 1.25rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .node-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .node-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .node-url {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0.1rem;
+        }
+
+        .link-node:hover .node-url {
+            color: var(--neon-blue);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding: 2rem 0;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>EasyPageX</h1>
+            <p>// Multiverse Demo Showcase Platform //</p>
+        </header>
+
+        <main class="showcase-grid">
+
+            <!-- GAMES -->
+            <section class="category-panel">
+                <h2 class="category-title">🎮 GAMES</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/back" target="_blank" class="link-node">
+                        <span class="node-emoji">🔙</span>
+                        <div class="node-info">
+                            <span class="node-title">Backgammon Engine</span>
+                            <span class="node-url">easypagex.github.io/back</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/ches" target="_blank" class="link-node">
+                        <span class="node-emoji">♟️</span>
+                        <div class="node-info">
+                            <span class="node-title">Chess Matrix</span>
+                            <span class="node-url">easypagex.github.io/ches</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/png" target="_blank" class="link-node">
+                        <span class="node-emoji">🏓</span>
+                        <div class="node-info">
+                            <span class="node-title">Ping Retro</span>
+                            <span class="node-url">easypagex.github.io/png</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/siai" target="_blank" class="link-node">
+                        <span class="node-emoji">🤖</span>
+                        <div class="node-info">
+                            <span class="node-title">Strategic AI Core</span>
+                            <span class="node-url">easypagex.github.io/siai</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/tetr" target="_blank" class="link-node">
+                        <span class="node-emoji">🧱</span>
+                        <div class="node-info">
+                            <span class="node-title">Tetris Protocol</span>
+                            <span class="node-url">easypagex.github.io/tetr</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/goal" target="_blank" class="link-node">
+                        <span class="node-emoji">⚽</span>
+                        <div class="node-info">
+                            <span class="node-title">Goal Striker</span>
+                            <span class="node-url">easypagex.github.io/goal</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/base" target="_blank" class="link-node">
+                        <span class="node-emoji">⚾</span>
+                        <div class="node-info">
+                            <span class="node-title">Base Runner</span>
+                            <span class="node-url">easypagex.github.io/base</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/mars" target="_blank" class="link-node">
+                        <span class="node-emoji">🚀</span>
+                        <div class="node-info">
+                            <span class="node-title">Mars Mission</span>
+                            <span class="node-url">easypagex.github.io/mars</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/zolt" target="_blank" class="link-node">
+                        <span class="node-emoji">⚡</span>
+                        <div class="node-info">
+                            <span class="node-title">Zolt Energy Strike</span>
+                            <span class="node-url">easypagex.github.io/zolt</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/inv/" target="_blank" class="link-node">
+                        <span class="node-emoji">👾</span>
+                        <div class="node-info">
+                            <span class="node-title">Space Invaders X</span>
+                            <span class="node-url">easypagex.github.io/inv/</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SAYINGS -->
+            <section class="category-panel">
+                <h2 class="category-title">💬 SAYINGS</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/sun" target="_blank" class="link-node">
+                        <span class="node-emoji">☀️</span>
+                        <div class="node-info">
+                            <span class="node-title">Sun Tzu Proverbs</span>
+                            <span class="node-url">easypagex.github.io/sun</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/sune/" target="_blank" class="link-node">
+                        <span class="node-emoji">📖</span>
+                        <div class="node-info">
+                            <span class="node-title">Sun Tzu Expanded</span>
+                            <span class="node-url">easypagex.github.io/sune/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/con" target="_blank" class="link-node">
+                        <span class="node-emoji">☯️</span>
+                        <div class="node-info">
+                            <span class="node-title">Confucius Philosophy</span>
+                            <span class="node-url">easypagex.github.io/con</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/lee" target="_blank" class="link-node">
+                        <span class="node-emoji">🥋</span>
+                        <div class="node-info">
+                            <span class="node-title">Bruce Lee Wisdom</span>
+                            <span class="node-url">easypagex.github.io/lee</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/leee/" target="_blank" class="link-node">
+                        <span class="node-emoji">🌊</span>
+                        <div class="node-info">
+                            <span class="node-title">Bruce Lee: Be Water</span>
+                            <span class="node-url">easypagex.github.io/leee/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/buda/" target="_blank" class="link-node">
+                        <span class="node-emoji">🧘</span>
+                        <div class="node-info">
+                            <span class="node-title">Buddha Dharma</span>
+                            <span class="node-url">easypagex.github.io/buda/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/bude/" target="_blank" class="link-node">
+                        <span class="node-emoji">📿</span>
+                        <div class="node-info">
+                            <span class="node-title">Buddha Enlightened</span>
+                            <span class="node-url">easypagex.github.io/bude/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/bash" target="_blank" class="link-node">
+                        <span class="node-emoji">🐸</span>
+                        <div class="node-info">
+                            <span class="node-title">Matsuo Bashō Haiku</span>
+                            <span class="node-url">easypagex.github.io/bash</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/walt" target="_blank" class="link-node">
+                        <span class="node-emoji">✨</span>
+                        <div class="node-info">
+                            <span class="node-title">Walt Disney Dream</span>
+                            <span class="node-url">easypagex.github.io/walt</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/wond" target="_blank" class="link-node">
+                        <span class="node-emoji">🎩</span>
+                        <div class="node-info">
+                            <span class="node-title">Wonderland Chronicles</span>
+                            <span class="node-url">easypagex.github.io/wond</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/wone" target="_blank" class="link-node">
+                        <span class="node-emoji">🐰</span>
+                        <div class="node-info">
+                            <span class="node-title">Wonderland Echoes</span>
+                            <span class="node-url">easypagex.github.io/wone</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/lewi" target="_blank" class="link-node">
+                        <span class="node-emoji">✍️</span>
+                        <div class="node-info">
+                            <span class="node-title">Lewis Carroll Logic</span>
+                            <span class="node-url">easypagex.github.io/lewi</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/prin" target="_blank" class="link-node">
+                        <span class="node-emoji">👑</span>
+                        <div class="node-info">
+                            <span class="node-title">The Little Prince</span>
+                            <span class="node-url">easypagex.github.io/prin</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/prie/" target="_blank" class="link-node">
+                        <span class="node-emoji">🌹</span>
+                        <div class="node-info">
+                            <span class="node-title">Prince Special Edition</span>
+                            <span class="node-url">easypagex.github.io/prie/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/wiz" target="_blank" class="link-node">
+                        <span class="node-emoji">🧙</span>
+                        <div class="node-info">
+                            <span class="node-title">Wizard of Oz</span>
+                            <span class="node-url">easypagex.github.io/wiz</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/gand" target="_blank" class="link-node">
+                        <span class="node-emoji">🧙‍♂️</span>
+                        <div class="node-info">
+                            <span class="node-title">Gandalf Spells</span>
+                            <span class="node-url">easypagex.github.io/gand</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/amel" target="_blank" class="link-node">
+                        <span class="node-emoji">✈️</span>
+                        <div class="node-info">
+                            <span class="node-title">Amelia Earhart Journeys</span>
+                            <span class="node-url">easypagex.github.io/amel</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/amee/" target="_blank" class="link-node">
+                        <span class="node-emoji">☁️</span>
+                        <div class="node-info">
+                            <span class="node-title">Amelia Sky Horizons</span>
+                            <span class="node-url">easypagex.github.io/amee/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/eins" target="_blank" class="link-node">
+                        <span class="node-emoji">🧠</span>
+                        <div class="node-info">
+                            <span class="node-title">Einstein Relativity</span>
+                            <span class="node-url">easypagex.github.io/eins</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/musk" target="_blank" class="link-node">
+                        <span class="node-emoji">🌌</span>
+                        <div class="node-info">
+                            <span class="node-title">Musk Mars Vision</span>
+                            <span class="node-url">easypagex.github.io/musk</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/tim" target="_blank" class="link-node">
+                        <span class="node-emoji">⏳</span>
+                        <div class="node-info">
+                            <span class="node-title">Timeless Quotes</span>
+                            <span class="node-url">easypagex.github.io/tim</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/time/" target="_blank" class="link-node">
+                        <span class="node-emoji">⏱️</span>
+                        <div class="node-info">
+                            <span class="node-title">Chronos Continuum</span>
+                            <span class="node-url">easypagex.github.io/time/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/et" target="_blank" class="link-node">
+                        <span class="node-emoji">👉</span>
+                        <div class="node-info">
+                            <span class="node-title">E.T. Phone Home</span>
+                            <span class="node-url">easypagex.github.io/et</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/yoda" target="_blank" class="link-node">
+                        <span class="node-emoji">🟢</span>
+                        <div class="node-info">
+                            <span class="node-title">Master Yoda Force</span>
+                            <span class="node-url">easypagex.github.io/yoda</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/mona" target="_blank" class="link-node">
+                        <span class="node-emoji">🖼️</span>
+                        <div class="node-info">
+                            <span class="node-title">Mona Lisa Legacy</span>
+                            <span class="node-url">easypagex.github.io/mona</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- MACHINES -->
+            <section class="category-panel">
+                <h2 class="category-title">🤖 MACHINES</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/hal" target="_blank" class="link-node">
+                        <span class="node-emoji">🔴</span>
+                        <div class="node-info">
+                            <span class="node-title">HAL 9000 Mainframe</span>
+                            <span class="node-url">easypagex.github.io/hal</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/moon" target="_blank" class="link-node">
+                        <span class="node-emoji">🌑</span>
+                        <div class="node-info">
+                            <span class="node-title">Lunar Lander Grid</span>
+                            <span class="node-url">easypagex.github.io/moon</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/lcar" target="_blank" class="link-node">
+                        <span class="node-emoji">🏎️</span>
+                        <div class="node-info">
+                            <span class="node-title">LCAR Interface Terminal</span>
+                            <span class="node-url">easypagex.github.io/lcar</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/muth" target="_blank" class="link-node">
+                        <span class="node-emoji">🖥️</span>
+                        <div class="node-info">
+                            <span class="node-title">MU-TH-UR 6000 Computer</span>
+                            <span class="node-url">easypagex.github.io/muth</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/ce3" target="_blank" class="link-node">
+                        <span class="node-emoji">🛸</span>
+                        <div class="node-info">
+                            <span class="node-title">Close Encounters Synths</span>
+                            <span class="node-url">easypagex.github.io/ce3</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- EASYPAGEX MAIN -->
+            <section class="category-panel">
+                <h2 class="category-title">🌐 EASYPAGEX CORE</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/qest" target="_blank" class="link-node">
+                        <span class="node-emoji">❓</span>
+                        <div class="node-info">
+                            <span class="node-title">Quest Portal Alpha</span>
+                            <span class="node-url">easypagex.github.io/qest</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/qste" target="_blank" class="link-node">
+                        <span class="node-emoji">🗺️</span>
+                        <div class="node-info">
+                            <span class="node-title">Quest Portal Beta</span>
+                            <span class="node-url">easypagex.github.io/qste</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/expl" target="_blank" class="link-node">
+                        <span class="node-emoji">🧭</span>
+                        <div class="node-info">
+                            <span class="node-title">Explorer Matrix</span>
+                            <span class="node-url">easypagex.github.io/expl</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/pagy" target="_blank" class="link-node">
+                        <span class="node-emoji">📄</span>
+                        <div class="node-info">
+                            <span class="node-title">Pagy Template System</span>
+                            <span class="node-url">easypagex.github.io/pagy</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/why" target="_blank" class="link-node">
+                        <span class="node-emoji">💡</span>
+                        <div class="node-info">
+                            <span class="node-title">The "Why" Mission</span>
+                            <span class="node-url">easypagex.github.io/why</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/lpus/" target="_blank" class="link-node">
+                        <span class="node-emoji">➕</span>
+                        <div class="node-info">
+                            <span class="node-title">L-Plus Module</span>
+                            <span class="node-url">easypagex.github.io/lpus/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/easy" target="_blank" class="link-node">
+                        <span class="node-emoji">⚡</span>
+                        <div class="node-info">
+                            <span class="node-title">Easy Setup Engine</span>
+                            <span class="node-url">easypagex.github.io/easy</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/48/" target="_blank" class="link-node">
+                        <span class="node-emoji">⏱️</span>
+                        <div class="node-info">
+                            <span class="node-title">48 Hour Render</span>
+                            <span class="node-url">easypagex.github.io/48/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/chat" target="_blank" class="link-node">
+                        <span class="node-emoji">💬</span>
+                        <div class="node-info">
+                            <span class="node-title">AI Chat Terminal</span>
+                            <span class="node-url">easypagex.github.io/chat</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/pong" target="_blank" class="link-node">
+                        <span class="node-emoji">🎮</span>
+                        <div class="node-info">
+                            <span class="node-title">Pong Classic Grid</span>
+                            <span class="node-url">easypagex.github.io/pong</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/kids" target="_blank" class="link-node">
+                        <span class="node-emoji">👶</span>
+                        <div class="node-info">
+                            <span class="node-title">Kids Subsystem</span>
+                            <span class="node-url">easypagex.github.io/kids</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/win" target="_blank" class="link-node">
+                        <span class="node-emoji">🏆</span>
+                        <div class="node-info">
+                            <span class="node-title">Winner UI Protocol</span>
+                            <span class="node-url">easypagex.github.io/win</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/elon" target="_blank" class="link-node">
+                        <span class="node-emoji">🚀</span>
+                        <div class="node-info">
+                            <span class="node-title">Elon Deck Config</span>
+                            <span class="node-url">easypagex.github.io/elon</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/anth/" target="_blank" class="link-node">
+                        <span class="node-emoji">🐜</span>
+                        <div class="node-info">
+                            <span class="node-title">Anthropocene Simulator</span>
+                            <span class="node-url">easypagex.github.io/anth/</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- EXPERIMENTS -->
+            <section class="category-panel">
+                <h2 class="category-title">🧪 EXPERIMENTS</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/brau" target="_blank" class="link-node">
+                        <span class="node-emoji">🍺</span>
+                        <div class="node-info">
+                            <span class="node-title">Brau Chemistry</span>
+                            <span class="node-url">easypagex.github.io/brau</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/hand" target="_blank" class="link-node">
+                        <span class="node-emoji">✋</span>
+                        <div class="node-info">
+                            <span class="node-title">Hand Tracker Protocol</span>
+                            <span class="node-url">easypagex.github.io/hand</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/vend" target="_blank" class="link-node">
+                        <span class="node-emoji">🛒</span>
+                        <div class="node-info">
+                            <span class="node-title">Vending Simulation</span>
+                            <span class="node-url">easypagex.github.io/vend</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/air" target="_blank" class="link-node">
+                        <span class="node-emoji">💨</span>
+                        <div class="node-info">
+                            <span class="node-title">Air Fluid Dynamics A</span>
+                            <span class="node-url">easypagex.github.io/air</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/aire/" target="_blank" class="link-node">
+                        <span class="node-emoji">🌀</span>
+                        <div class="node-info">
+                            <span class="node-title">Air Fluid Dynamics B</span>
+                            <span class="node-url">easypagex.github.io/aire/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/ttxt" target="_blank" class="link-node">
+                        <span class="node-emoji">📝</span>
+                        <div class="node-info">
+                            <span class="node-title">Telemetry Text parser</span>
+                            <span class="node-url">easypagex.github.io/ttxt</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/ibm/" target="_blank" class="link-node">
+                        <span class="node-emoji">💼</span>
+                        <div class="node-info">
+                            <span class="node-title">IBM Legacy emulation</span>
+                            <span class="node-url">easypagex.github.io/ibm/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/ibmx/" target="_blank" class="link-node">
+                        <span class="node-emoji">🏢</span>
+                        <div class="node-info">
+                            <span class="node-title">IBM Extended Core</span>
+                            <span class="node-url">easypagex.github.io/ibmx/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/pen" target="_blank" class="link-node">
+                        <span class="node-emoji">✒️</span>
+                        <div class="node-info">
+                            <span class="node-title">Vector Pen Engine</span>
+                            <span class="node-url">easypagex.github.io/pen</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/aix" target="_blank" class="link-node">
+                        <span class="node-emoji">⚔️</span>
+                        <div class="node-info">
+                            <span class="node-title">AIX Synthetic Combat</span>
+                            <span class="node-url">easypagex.github.io/aix</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/hire" target="_blank" class="link-node">
+                        <span class="node-emoji">👔</span>
+                        <div class="node-info">
+                            <span class="node-title">Hire Smart Terminal</span>
+                            <span class="node-url">easypagex.github.io/hire</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/dire/" target="_blank" class="link-node">
+                        <span class="node-emoji">⚠️</span>
+                        <div class="node-info">
+                            <span class="node-title">Dire Threat Matrix</span>
+                            <span class="node-url">easypagex.github.io/dire/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/casi/" target="_blank" class="link-node">
+                        <span class="node-emoji">🎰</span>
+                        <div class="node-info">
+                            <span class="node-title">Casino Logic Routine</span>
+                            <span class="node-url">easypagex.github.io/casi/</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- PAWVIBES -->
+            <section class="category-panel">
+                <h2 class="category-title">🐾 PAWVIBES</h2>
+                <div class="link-list">
+                    <a href="https://easypagex.github.io/pawz/" target="_blank" class="link-node">
+                        <span class="node-emoji">🐾</span>
+                        <div class="node-info">
+                            <span class="node-title">Pawz Bio-Metrics</span>
+                            <span class="node-url">easypagex.github.io/pawz/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/pzom" target="_blank" class="link-node">
+                        <span class="node-emoji">🧟</span>
+                        <div class="node-info">
+                            <span class="node-title">Pet Zombie Mode</span>
+                            <span class="node-url">easypagex.github.io/pzom</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/crun" target="_blank" class="link-node">
+                        <span class="node-emoji">🏃</span>
+                        <div class="node-info">
+                            <span class="node-title">Cyber Runner Dogs</span>
+                            <span class="node-url">easypagex.github.io/crun</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/petl" target="_blank" class="link-node">
+                        <span class="node-emoji">❤️</span>
+                        <div class="node-info">
+                            <span class="node-title">Pet Love Metrics</span>
+                            <span class="node-url">easypagex.github.io/petl</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/rubi/" target="_blank" class="link-node">
+                        <span class="node-emoji">💎</span>
+                        <div class="node-info">
+                            <span class="node-title">Rubi Spark Protocol</span>
+                            <span class="node-url">easypagex.github.io/rubi/</span>
+                        </div>
+                    </a>
+                    <a href="https://easypagex.github.io/rbiv/" target="_blank" class="link-node">
+                        <span class="node-emoji">🧬</span>
+                        <div class="node-info">
+                            <span class="node-title">Ruby Hive Grid</span>
+                            <span class="node-url">easypagex.github.io/rbiv/</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            EASYPAGEX DETAILED INDEX // QUANTUM DATA STREAM EMULATION SYSTEM
+        </footer>
+    </div>
+
+</body>
+</html>
